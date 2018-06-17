@@ -36,8 +36,6 @@ concept Address {
     o String city optional
     o String state optional
     o String country optional
-    o String region optional
-    o String street optional
     o String postalCode optional
 }
 
@@ -86,8 +84,4 @@ transaction TransferCommodity {
 }
 
 transaction SetupDemo {
-		o Manufacturer[] manufacturers
-		o Distributor[] distributors
-		o Retailer[] retailers
-		o Customer[] customers
 }

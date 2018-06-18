@@ -133,3 +133,27 @@ rule OrdererCanReadTransaction {
     condition: (v.orderer.getIdentifier() == m.getIdentifier())
     action: ALLOW
 }
+
+rule rbox {
+    description:  "box model"
+    participant: "org.sears.*"
+    operation: ALL
+    resource: "org.sears.Box"
+    action: ALLOW
+}
+
+rule rbox1 {
+    description:  "box transaction"
+    participant: "org.sears.*"
+    operation: ALL
+    resource: "org.sears.MakeBox"
+    action: ALLOW
+}
+
+rule rbox2 {
+    description:  "box transaction"
+    participant: "org.sears.*"
+    operation: ALL
+    resource: "org.sears.UnBox"
+    action: ALLOW
+}

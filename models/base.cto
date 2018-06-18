@@ -12,9 +12,20 @@ concept Trace {
 asset Commodity identified by productId {
     o String productId
     o String name
-    o String description
+    o String description optional
     o Trace[] trace
     --> PO purchaseOrder optional
+    --> Trader owner
+    --> Trader issuer
+    o String boxId optional
+}
+
+asset Box identified by boxId {
+    o String boxId
+    o Commodity[] itemList
+    o String name optional
+    o String description optional
+    o Trace[] trace
     --> Trader owner
     --> Trader issuer
 }
@@ -81,6 +92,28 @@ transaction TransferCommodity {
     --> Trader newOwner
     --> PO purchaseOrder optional
     o Address shipperLocation
+}
+
+transaction MakeBox{
+  	o String boxId
+    o Commodity[] itemList
+    o String name optional
+    o String description optional
+    --> Trader owner
+    --> Trader issuer
+}
+
+transaction TransferBox{
+    o Box box
+    --> Trader owner
+    --> Trader issuer
+    o Address shipperLocation
+}
+
+transaction UnBox{
+    o String boxId
+    --> Trader owner
+    --> Trader issuer
 }
 
 transaction SetupDemo {

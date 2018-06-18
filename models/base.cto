@@ -96,7 +96,7 @@ transaction TransferCommodity {
 
 transaction MakeBox{
   	o String boxId
-    o Commodity[] itemList
+    --> Commodity[] itemList
     o String name optional
     o String description optional
     --> Trader owner
@@ -104,9 +104,9 @@ transaction MakeBox{
 }
 
 transaction TransferBox{
-    o Box box
-    --> Trader owner
+    o String boxId
     --> Trader issuer
+    --> Trader newOwner
     o Address shipperLocation
 }
 

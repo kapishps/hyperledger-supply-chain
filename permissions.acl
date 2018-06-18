@@ -157,3 +157,11 @@ rule rbox2 {
     resource: "org.sears.UnBox"
     action: ALLOW
 }
+
+rule rbox3 {
+    description:  "box transaction"
+    participant: "org.sears.*"
+    operation: ALL
+    resource: "org.sears.TransferBox"
+    action: ALLOW
+}

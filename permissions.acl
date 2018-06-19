@@ -143,6 +143,15 @@ rule ReadBox {
     action: ALLOW
 }
 
+rule ConditionalRuleWithCreationBox {
+    description: "Grant all participants can create its own resource"
+    participant(m): "org.sears.*"
+    operation: CREATE
+    resource(v): "org.sears.Box"
+    condition: (v.owner.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+}
+
 rule RuleWithTransactionMakeBox {
     description: "Allow all paticipants to access MakeBox Transaction"
     participant: "org.sears.*"

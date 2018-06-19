@@ -26,6 +26,7 @@ asset Box identified by boxId {
     o String name optional
     o String description optional
     o Trace[] trace
+    --> PO purchaseOrder optional
     --> Trader owner
     --> Trader issuer
 }
@@ -50,9 +51,14 @@ concept Address {
     o String postalCode optional
 }
 
+concept Order {
+    o String commodityName optional
+    o String commodityQuantity optional
+}
+
 asset PO identified by orderId {
     o String orderId
-    o Commodity[] itemList
+    o Order[] orderList
     o OrderStatus orderStatus optional
     --> Trader orderer
     --> Trader vender
@@ -81,7 +87,7 @@ participant Customer identified by tradeId extends Trader {
 
 transaction InitiatePO {
     o String orderId
-    o Commodity[] itemList
+    o Order[] orderList
     --> Trader orderer optional
     --> Trader vender
 }
@@ -101,6 +107,7 @@ transaction MakeBox{
     o String description optional
     --> Trader owner
     --> Trader issuer
+    --> PO purchaseOrder optional
 }
 
 transaction TransferBox{

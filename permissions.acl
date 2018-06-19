@@ -134,34 +134,101 @@ rule OrdererCanReadTransaction {
     action: ALLOW
 }
 
-rule rbox {
-    description:  "box model"
-    participant: "org.sears.*"
-    operation: ALL
-    resource: "org.sears.Box"
+rule ReadBox {
+    description: "All participants can read its own Boxes"
+    participant(m): "org.sears.*"
+    operation: READ
+    resource(v): "org.sears.Box"
+    condition: (v.owner.getIdentifier() == m.getIdentifier())
     action: ALLOW
 }
 
-rule rbox1 {
-    description:  "box transaction"
+rule RuleWithTransactionMakeBox {
+    description: "Allow all paticipants to access MakeBox Transaction"
     participant: "org.sears.*"
-    operation: ALL
+    operation: CREATE
     resource: "org.sears.MakeBox"
     action: ALLOW
 }
 
-rule rbox2 {
-    description:  "box transaction"
+rule ConditionRuleWithTransactionMakeBox {
+  	description:"Allow all paticipants to box its own commodity only by MakeBox"
+    participant(m): "org.sears.*"
+    operation: UPDATE
+    resource(v): "org.sears.*"
+    transaction(tx): "org.sears.MakeBox"
+    condition: (v.owner.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+}
+
+rule ConditionRuleWithTransactionMakeBox2 {
+  	description:"Grant all paticipants to read its own MakeBox transaction records"
+    participant(m): "org.sears.*"
+    operation: READ
+    resource(v): "org.sears.MakeBox"
+    condition: (v.issuer.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+}
+
+rule RuleWithTransactionTransferBox {
+    description: "Allow all paticipants to access TransferBox Transaction"
     participant: "org.sears.*"
-    operation: ALL
+    operation: CREATE
+    resource: "org.sears.TransferBox"
+    action: ALLOW
+}
+
+rule ConditionRuleWithTransactionTransferBox {
+  	description:"Allow all paticipants to transfer its own Box only by TransferBox"
+    participant(m): "org.sears.*"
+    operation: UPDATE
+    resource(v): "org.sears.*"
+    transaction(tx): "org.sears.TransferBox"
+    condition: (v.owner.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+}
+
+rule ConditionRuleWithTransactionTransferBox2 {
+  	description:"Grant all paticipants to read its own TransferBox transaction records"
+    participant(m): "org.sears.*"
+    operation: READ
+    resource(v): "org.sears.TransferBox"
+    condition: (v.issuer.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+}
+
+rule ConditionRuleWithTransactionTransferBox3 {
+  	description:"Grant all paticipants to read its own TransferBox transaction records"
+    participant(m): "org.sears.*"
+    operation: READ
+    resource(v): "org.sears.TransferBox"
+    condition: (v.newOwner.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+}
+
+rule RuleWithTransactionUnBox {
+    description: "Allow all paticipants to access UnBox Transaction"
+    participant: "org.sears.*"
+    operation: CREATE
     resource: "org.sears.UnBox"
     action: ALLOW
 }
 
-rule rbox3 {
-    description:  "box transaction"
-    participant: "org.sears.*"
-    operation: ALL
-    resource: "org.sears.TransferBox"
+rule ConditionRuleWithTransactionUnBox {
+  	description:"Allow all paticipants to unbox its own Box only by UnBox"
+    participant(m): "org.sears.*"
+    operation: UPDATE
+    resource(v): "org.sears.*"
+    transaction(tx): "org.sears.UnBox"
+    condition: (v.owner.getIdentifier() == m.getIdentifier())
+    action: ALLOW
+}
+
+rule ConditionRuleWithTransactionUnBox2 {
+  	description:"Grant all paticipants to read its own UnBox transaction records"
+    participant(m): "org.sears.*"
+    operation: READ
+    resource(v): "org.sears.UnBox"
+    condition: (v.issuer.getIdentifier() == m.getIdentifier())
     action: ALLOW
 }

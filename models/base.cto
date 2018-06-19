@@ -22,7 +22,7 @@ asset Commodity identified by productId {
 
 asset Box identified by boxId {
     o String boxId
-    o Commodity[] itemList
+    --> Commodity[] itemList
     o String name optional
     o String description optional
     o Trace[] trace
@@ -104,14 +104,14 @@ transaction MakeBox{
 }
 
 transaction TransferBox{
-    o String boxId
+    --> Box box
     --> Trader issuer
     --> Trader newOwner
     o Address shipperLocation
 }
 
 transaction UnBox{
-    o String boxId
+    --> Box box
     --> Trader owner
     --> Trader issuer
 }
